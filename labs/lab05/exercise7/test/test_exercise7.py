@@ -7,7 +7,6 @@ from exercise7 import find_conflicting_ports
 
 
 def test_basic_conflicts():
-    """Test basic case with conflicts"""
     rules = [
         (1, 80, "ALLOW"), 
         (2, 443, "ALLOW"), 
@@ -20,7 +19,6 @@ def test_basic_conflicts():
 
 
 def test_no_conflicts():
-    """Test when no conflicts exist"""
     rules = [
         (1, 80, "ALLOW"), 
         (2, 80, "ALLOW"), 
@@ -30,7 +28,6 @@ def test_no_conflicts():
 
 
 def test_single_port_conflict():
-    """Test with only one conflicting port"""
     rules = [
         (1, 80, "ALLOW"),
         (2, 80, "BLOCK"),
@@ -40,30 +37,25 @@ def test_single_port_conflict():
     assert find_conflicting_ports(rules) == [(80, 2)]
 
 
-def test_multiple_rules_same_action():
-    """Test port with many rules but same action"""
+def test_multiple_same_action():
     rules = [
         (1, 80, "ALLOW"),
         (2, 80, "ALLOW"),
-        (3, 80, "ALLOW"),
-        (4, 80, "ALLOW")
+        (3, 80, "ALLOW")
     ]
     assert find_conflicting_ports(rules) == []
 
 
-def test_conflict_order_matters():
-    """Test that first conflicting rule ID is returned"""
+def test_first_conflict_rule():
     rules = [
         (1, 80, "ALLOW"),
-        (2, 80, "BLOCK"),  # First conflict
-        (3, 80, "ALLOW"),  # Another conflict but not first
-        (4, 80, "BLOCK")
+        (2, 80, "BLOCK"),
+        (3, 80, "ALLOW")
     ]
     assert find_conflicting_ports(rules) == [(80, 2)]
 
 
 def test_multiple_ports_sorted():
-    """Test that results are sorted by port number"""
     rules = [
         (1, 443, "ALLOW"),
         (2, 22, "ALLOW"),
@@ -76,32 +68,39 @@ def test_multiple_ports_sorted():
 
 
 def test_block_then_allow():
-    """Test conflict when BLOCK comes before ALLOW"""
     rules = [
         (1, 80, "BLOCK"),
-        (2, 80, "ALLOW")  # Creates conflict
+        (2, 80, "ALLOW")
     ]
     assert find_conflicting_ports(rules) == [(80, 2)]
 
 
-def test_empty_rules():
-    """Test with empty rules list"""
-    assert find_conflicting_ports([]) == []
-
-
-def test_single_rule():
-    """Test with only one rule"""
-    rules = [(1, 80, "ALLOW")]
-    assert find_conflicting_ports(rules) == []
-
-
-def test_high_port_numbers():
-    """Test with high port numbers"""
+def test_three_ports_mixed():
     rules = [
-        (1, 8080, "ALLOW"),
-        (2, 8080, "BLOCK"),
-        (3, 9000, "BLOCK"),
-        (4, 9000, "ALLOW"),
-        (5, 3000, "ALLOW")
+        (1, 80, "ALLOW"),
+        (2, 443, "BLOCK"),
+        (3, 22, "ALLOW"),
+        (4, 80, "BLOCK"),
+        (5, 22, "BLOCK")
     ]
-    assert find_conflicting_ports(rules) == [(3000, 5), (8080, 2), (9000, 4)]
+    assert find_conflicting_ports(rules) == [(22, 5), (80, 4)]
+
+
+def test_allow_block_allow_pattern():
+    rules = [
+        (1, 80, "ALLOW"),
+        (2, 443, "BLOCK"),
+        (3, 80, "BLOCK"),
+        (4, 443, "ALLOW")
+    ]
+    assert find_conflicting_ports(rules) == [(80, 3), (443, 4)]
+
+
+def test_four_rules_one_port():
+    rules = [
+        (1, 80, "ALLOW"),
+        (2, 80, "ALLOW"),
+        (3, 80, "BLOCK"),
+        (4, 80, "BLOCK")
+    ]
+    assert find_conflicting_ports(rules) == [(80, 3)]

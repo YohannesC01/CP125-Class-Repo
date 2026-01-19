@@ -1,19 +1,8 @@
 
 def find_conflicting_ports(rules):
-    """
-    Find ports with conflicting rules (both ALLOW and BLOCK).
-    Returns the port and the rule ID that created the conflict.
-    
-    Args:
-        rules: List of tuples (rule_id, port, action)
-    
-    Returns:
-        Sorted list of tuples (port, conflicting_rule_id)
-    """
     pass
 
 
-# Test 1
 rules = [
     (1, 80, "ALLOW"), 
     (2, 443, "ALLOW"), 
@@ -24,10 +13,8 @@ rules = [
 ]
 
 result = find_conflicting_ports(rules)
-print(f"Conflicts: {result}")  # Expected: [(80, 3), (443, 5)]
+print(f"Conflicts: {result}")
 
-
-# Test 2
 rules2 = [
     (1, 80, "ALLOW"), 
     (2, 80, "ALLOW"), 
@@ -35,4 +22,4 @@ rules2 = [
 ]
 
 result2 = find_conflicting_ports(rules2)
-print(f"Conflicts: {result2}")  # Expected: []
+print(f"Conflicts: {result2}")
