@@ -1,2 +1,8 @@
 def audit_zero_trust(baseline_set, current_log_list):
-   pass
+   log_set = set(current_log_list)
+
+   Authorized = baseline_set & log_set
+   alerts = log_set - baseline_set
+   inactive = baseline_set - log_set
+
+   return (Authorized,alerts,inactive)
