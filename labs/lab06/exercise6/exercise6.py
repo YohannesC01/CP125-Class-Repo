@@ -20,6 +20,7 @@ def manage_roster(enrolled, drop_requests, waitlist):
                 return len(updated_enrolled)
             else:
                 random = waitlist.pop()
+                
                 updated_enrolled.add(random)
   
     return len(updated_enrolled)

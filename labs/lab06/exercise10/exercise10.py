@@ -1,5 +1,6 @@
 def get_unique_attendees(attendance_logs):
     """Extract set of all unique attendee IDs."""
+    
     pass
 
 def count_unique_events(attendance_logs, attendee_id):
@@ -13,3 +14,4 @@ def filter_by_threshold(attendees, attendance_logs, min_events):
 def find_frequent_attendees(attendance_logs, min_events):
     """Find attendees who attended at least min_events unique events."""
     pass
+
