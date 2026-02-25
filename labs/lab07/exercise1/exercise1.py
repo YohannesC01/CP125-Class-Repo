@@ -2,6 +2,20 @@ def process_actions(catalog, actions):
     # TODO: Your code here
     pass
 
+    for actions,isbn in actions:
+
+        if isbn not in catalog:
+            continue
+
+        if actions == "BORROW":
+            if catalog[isbn] > 0:
+                catalog[isbn] -= 1
+
+        if actions == "RETURN":
+            catalog[isbn] += 1
+
+    return catalog
+
 
 
 catalog = {
