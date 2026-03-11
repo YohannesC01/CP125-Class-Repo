@@ -13,9 +13,9 @@ def calculate_final_grades(input_file, output_file):
         float: average of all final grades
     """
     # TODO: Implement this function
-    pass
+    scores = open()
 
 
 # Test your code here
-result = calculate_final_grades("data/scores.csv", "data/grades.csv")
+result = calculate_final_grades("labs/lab08/exercise4/data/scores.csv", "labs/lab08/exercise4/data/grades.csv")
 print(f"Average final grade: {result:.2f}")
