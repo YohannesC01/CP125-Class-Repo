@@ -1,5 +1,12 @@
 import pytest
-from exercise1 import explore_data
+import importlib.util
+import os
+
+_exercise_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'exercise1.py')
+_spec = importlib.util.spec_from_file_location("exercise1_lab9", _exercise_path)
+_module = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_module)
+explore_data = _module.explore_data
 
 
 def test_total_students():

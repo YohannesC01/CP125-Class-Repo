@@ -1,5 +1,12 @@
 import pytest
-from exercise3 import show_math_trend
+import importlib.util
+import os
+
+_exercise_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'exercise3.py')
+_spec = importlib.util.spec_from_file_location("exercise3_lab9", _exercise_path)
+_module = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_module)
+show_math_trend = _module.show_math_trend
 import matplotlib
 matplotlib.use('Agg')
 

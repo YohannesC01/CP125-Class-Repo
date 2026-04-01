@@ -1,5 +1,12 @@
 import pytest
-from exercise4 import show_science_distribution
+import importlib.util
+import os
+
+_exercise_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'exercise4.py')
+_spec = importlib.util.spec_from_file_location("exercise4_lab9", _exercise_path)
+_module = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_module)
+show_science_distribution = _module.show_science_distribution
 import matplotlib
 matplotlib.use('Agg')
 

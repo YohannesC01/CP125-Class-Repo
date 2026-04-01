@@ -1,5 +1,12 @@
 import pytest
-from exercise2 import compare_averages
+import importlib.util
+import os
+
+_exercise_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'exercise2.py')
+_spec = importlib.util.spec_from_file_location("exercise2_lab9", _exercise_path)
+_module = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_module)
+compare_averages = _module.compare_averages
 
 
 def test_math_average():
