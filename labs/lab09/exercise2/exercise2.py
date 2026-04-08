@@ -3,9 +3,10 @@ import pandas as pd
 
 def compare_averages(filename):
     data = pd.read_csv(filename)
-    math_avg = round(data['Math'].mean(), 1)
-    science_avg = round(data['Science'].mean(), 1)
-    english_avg = round(data['English'].mean(), 1)
+    math_avg = float(round(data['Math'].mean(), 1))
+    science_avg = float(round(data['Science'].mean(), 1))
+    english_avg = float(round(data['English'].mean(), 1))
+
 
     averages = {
         "Math": math_avg,
@@ -14,8 +15,8 @@ def compare_averages(filename):
     }
 
     
-    best_subject = max(averages)
-    worst_subject = min(averages)
+    best_subject = float(max(averages.values()))
+    worst_subject = float(min(averages.values()))
 
     averages["best_subject"] = best_subject
     averages["worst_subject"] = worst_subject
